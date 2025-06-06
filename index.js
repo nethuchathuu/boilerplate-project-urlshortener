@@ -28,17 +28,17 @@ app.post('/api/shorturl', (req, res) => {
   let inputUrl = req.body.url;
 
   try{
-    let urlObject = new URL(original_url);
+    let urlObject = new URL(inputUrl);
     dns.lookup(urlObject.hostname, (err) => {
       if(err){
         return res.json({error: 'invalid url'})
       }
 
       const short_url = count++;
-      urls[short_url] = original_url;
+      urls[short_url] = inputUrl;
 
       res.json({
-        original_url,
+        original_url: inputUrl,
         short_url
       });
     });
